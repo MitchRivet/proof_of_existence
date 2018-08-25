@@ -35,10 +35,6 @@ contract Proofs {
 
     // Clarification -> do we get all of OUR proofs at the start of the app? or load the json dummy data...
 
-    function getProof(uint id) return (Proof) {
-        return proofs[id];
-    }
-
     function getProofs(address creator) returns (Proof[]) {
         //how to return an array in solidity? apparently cannot do...
         return proofsByCreator[msg.sender];

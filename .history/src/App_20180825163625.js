@@ -55,10 +55,10 @@ class App extends Component {
       proofs.deployed().then((instance) => {
         proofsInstance = instance
 
-        return proofsInstance.createProof('inital proof', 'here is my proof', 'eventualImage.jpg', ["first", "time"]);
+        return simpleStorageInstance.createProof('inital proof', 'here is my proof', 'eventualImage.jpg', ["first", "time"]);
       }).then((result) => {
         //get proof index 0... want to figure out how to get ALL proofs at init, i.e. return an array of structs 
-        return proofsInstance.getProof.call(0)
+        return simpleStorageInstance.getProof.call(0)
       }).then((result) => {
         // Update state with the result.
         return this.setState({ proofs: result.c[0] })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ProofsContract from '../build/contracts/Proofs.json'
+import SimpleStorageContract from '../build/contracts/Proofs.json'
 import getWeb3 from './utils/getWeb3'
 
 import './css/oswald.css'
@@ -44,24 +44,25 @@ class App extends Component {
      */
 
     const contract = require('truffle-contract')
-    const proofs = contract(ProofsContract)
-    proofs.setProvider(this.state.web3.currentProvider)
+    const simpleStorage = contract(SimpleStorageContract)
+    simpleStorage.setProvider(this.state.web3.currentProvider)
 
     // Declaring this for later so we can chain functions on SimpleStorage.
-    var proofsInstance
+    var simpleStorageInstance
 
     // Get accounts.
     this.state.web3.eth.getAccounts((error, accounts) => {
-      proofs.deployed().then((instance) => {
-        proofsInstance = instance
+      simpleStorage.deployed().then((instance) => {
+        simpleStorageInstance = instance
 
-        return proofsInstance.createProof('inital proof', 'here is my proof', 'eventualImage.jpg', ["first", "time"]);
+        // Stores a given value, 5 by default.
+        return simpleStorageInstance.set(5, {from: accounts[0]})
       }).then((result) => {
-        //get proof index 0... want to figure out how to get ALL proofs at init, i.e. return an array of structs 
-        return proofsInstance.getProof.call(0)
+        // Get the value from the contract to prove it worked.
+        return simpleStorageInstance.get.call(accounts[0])
       }).then((result) => {
         // Update state with the result.
-        return this.setState({ proofs: result.c[0] })
+        return this.setState({ storageValue: result.c[0] })
       })
     })
   }
