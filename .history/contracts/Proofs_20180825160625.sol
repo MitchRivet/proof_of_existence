@@ -1,5 +1,4 @@
 pragma solidity ^0.4.18;
-pragma experimental ABIEncoderV2;
 
 contract Proofs {
 
@@ -12,18 +11,18 @@ contract Proofs {
 
     //TODO; IPFS thing for pics and maybe vids
     struct Proof {
-        uint id; 
+        uint indexed id; 
         address creator; 
         string title; 
-        string description;
+        string descriptionl
         string image;
         string[] tags; 
     }
 
     //events
     event getProofsByCreator(address creator);
-    event ProofCreated(uint id);
-    event deleteProof(uint id);
+    event createProof("Proof Created");
+    event deleteProof("Proof Deleted");
 
     //modifiers 
     //modifier isCreator()
@@ -42,8 +41,7 @@ contract Proofs {
 
     function createProof(string title, string description, string image, string[] tags) public returns (Proof) {
         proofCount += 1; 
-        proofs[proofCount] = Proof({id: proofCount, creator: msg.sender, title: title, description: description, image: image, tags: tags });
-        emit ProofCreated(proofCount);
+        proofs[proofCount] = Proof({id: proofCount, address: msg.sender, title: title, description: description, image: image, tags: tags });
         return proofs[proofCount];
     }
 

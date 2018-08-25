@@ -1,5 +1,4 @@
 pragma solidity ^0.4.18;
-pragma experimental ABIEncoderV2;
 
 contract Proofs {
 
@@ -42,7 +41,7 @@ contract Proofs {
 
     function createProof(string title, string description, string image, string[] tags) public returns (Proof) {
         proofCount += 1; 
-        proofs[proofCount] = Proof({id: proofCount, creator: msg.sender, title: title, description: description, image: image, tags: tags });
+        proofs[proofCount] = Proof({id: proofCount, address: msg.sender, title: title, description: description, image: image, tags: tags });
         emit ProofCreated(proofCount);
         return proofs[proofCount];
     }
