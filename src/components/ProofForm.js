@@ -8,7 +8,7 @@ const IpfsFileUpload = asField(({ fieldState, fieldApi, ...props }) => {
   const { value } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
-  console.log(fieldState, fieldApi);
+
   return (
     <div>
       <input
@@ -41,7 +41,7 @@ const IpfsFileUpload = asField(({ fieldState, fieldApi, ...props }) => {
         <span>
           {fieldState.touched ? (
             <div>
-              <FontAwesomeIcon icon={faSpinner} spin/>
+              <FontAwesomeIcon icon={faSpinner} spin />
               <p>
                 A green check will appear when your file has finished uploading
                 to ipfs

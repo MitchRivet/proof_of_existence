@@ -63,13 +63,13 @@ class App extends Component {
           proofsInstance = instance;
           this.setState({ proofsInstance: proofsInstance, accounts: accounts });
           //return proofsInstance.getProof(0, {from: accounts[0]});
-          return proofsInstance.getProofIds.call();
+          return proofsInstance.getProofCount.call();
         })
         .then(result => {
           this.setState({ numberOfProofs: result.toNumber() });
           if (result.toNumber() > 0) {
             let promiseArray = [];
-            for (var i = 0; i <=result.toNumber(); i++) {
+            for (var i = 0; i <= result.toNumber(); i++) {
               promiseArray.push(proofsInstance.getProof(i));
             }
             return Promise.all(promiseArray);
@@ -134,19 +134,34 @@ class App extends Component {
   }
 
   render() {
-    // let proofs = this.state.proofs;
-    let cards = this.state.proofs.map((p, i) => {
-      return (
-        <Card key={i} data-proof-id={p.id}>
+    let cards;
+    if (this.state.proofs.length > 0) {
+      cards = this.state.proofs.map((p, i) => {
+        return (
+          <Card key={i} data-proof-id={p.id}>
+            <Card.Content>
+              <Card.Header>{p.title}</Card.Header>
+              <Image src={`https://ipfs.io/ipfs/${p.image}`} alt={p.title} />
+              <p>{p.description}</p>
+              <p>Pending: {p.pending.toString()}</p>
+            </Card.Content>
+          </Card>
+        );
+      });
+    } else {
+      cards = (
+        <Card>
           <Card.Content>
-            <Card.Header>{p.title}</Card.Header>
-            <Image src={`https://ipfs.io/ipfs/${p.image}`} alt={p.title}/>
-            <p>{p.description}</p>
-            <p>Pending: {p.pending.toString()}</p>
+            <p>There are no proofs created on this contract yet!</p>
+            <p>
+              Create a proof using the form and pay for the transaction with
+              metamask
+            </p>
           </Card.Content>
         </Card>
       );
-    });
+    }
+
     return (
       <div className="App">
         <nav className="navbar pure-menu pure-menu-horizontal">
@@ -158,7 +173,7 @@ class App extends Component {
         <div className="centerColumn">
           <Card>
             <Card.Content>
-            <Card.Header>Submit A Proof</Card.Header>
+              <Card.Header>Submit A Proof</Card.Header>
               <ProofForm handleSubmit={this.createProof} />
             </Card.Content>
           </Card>

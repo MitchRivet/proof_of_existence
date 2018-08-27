@@ -5,7 +5,7 @@ contract("Proofs", function(accounts) {
     return Proofs.deployed()
       .then(function(instance) {
         var proofsInstance = instance;
-        return proofsInstance.getProofIds.call();
+        return proofsInstance.getProofCount.call();
       })
       .then(function(res) {
         assert.equal(
@@ -74,7 +74,7 @@ contract("Proofs", function(accounts) {
       }
       return Promise.all(promiseArray)
         .then(function(res) {
-          return proofsInstance.getProofIds.call();
+          return proofsInstance.getProofCount.call();
         })
         .then(function(res) {
           assert.equal(
