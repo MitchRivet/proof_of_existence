@@ -82,6 +82,7 @@ code {
   justify-content: center;
 }
 
-.formCard input, button {
+.formCard input, button, textarea {
   margin-top: 20px;
 }
+

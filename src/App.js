@@ -66,7 +66,6 @@ class App extends Component {
           return proofsInstance.getProofIds.call();
         })
         .then(result => {
-          debugger; 
           this.setState({ numberOfProofs: result.toNumber() });
           if (result.toNumber() > 0) {
             let promiseArray = [];
