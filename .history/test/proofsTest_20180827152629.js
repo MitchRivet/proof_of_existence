@@ -1,20 +1,6 @@
 var Proofs = artifacts.require("./Proofs.sol");
 
 contract("Proofs", function(accounts) {
-  it("should return 0  contracts is first deployed", function() {
-    return Proofs.deployed()
-      .then(function(instance) {
-        var proofsInstance = instance;
-        return proofsInstance.getProofIds.call();
-      })
-      .then(function(res) {
-        assert.equal(
-          res.toNumber(),
-          0,
-          "should return 0 - no proofs have been created"
-        );
-      });
-  });
 
   it("should create and fetch a the correct title", function() {
     return Proofs.deployed().then(function(instance) {
@@ -77,11 +63,7 @@ contract("Proofs", function(accounts) {
           return proofsInstance.getProofIds.call();
         })
         .then(function(res) {
-          assert.equal(
-            res.toNumber(),
-            6,
-            "counted 6 created proofs (what we've created at this point)"
-          );
+          assert.equal(res.toNumber(), 6, "counted 6 created proofs- including what we made in the first test");
         });
     });
   });
