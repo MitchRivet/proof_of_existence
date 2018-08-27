@@ -28,7 +28,7 @@ contract Proofs is Ownable, Pausable {
     }
 
     //events
-    event FetchProofByID(address creator);
+    event FetchProofById(uint id);
     event ProofCreated(uint id);
     event GetProofCount(uint total);
     
@@ -45,13 +45,13 @@ contract Proofs is Ownable, Pausable {
     // is there a possible better work around to return a list of things? 
     //rather than looping through and getting them individually...
     function getProof(uint id) public constant whenNotPaused returns (uint, string, string, string) {
-        emit FetchProofByID(id);
+        emit FetchProofById(id);
         return (proofs[id].id, proofs[id].title, proofs[id].description, proofs[id].image);
     }
 
     //issues when returning uint[]... docs say you can w/ web3?        
     function getProofCount() public constant whenNotPaused returns (uint) {
-        event GetProofCount(lastProofId);
+        emit GetProofCount(lastProofId);
         return lastProofId;
     }
 
