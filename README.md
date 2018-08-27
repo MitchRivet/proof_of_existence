@@ -2,6 +2,10 @@
 
 This app allows users to share proof of things that they have done. It stores 'proofs' on the block chain and uploads their photos to ipfs. On opening the app, they should see a scrolling card view of other 'proofs'. I considered making the 'proofs' only accesible by their owners, but that seemed to contradict the idea of proving something in the first place 
 
+It should look something like this: 
+
+![Alt text](ExampleImage.png?raw=true "Example")
+
 ## Setup
 This app requires npm, ganache-cli, and metamask
 

@@ -67,6 +67,7 @@ class App extends Component {
         })
         .then(result => {
           this.setState({ numberOfProofs: result.toNumber() });
+          debugger; 
           if (result.toNumber() > 0) {
             let promiseArray = [];
             for (var i = 0; i <= result.toNumber(); i++) {
@@ -98,7 +99,6 @@ class App extends Component {
   }
 
   createProof(form) {
-    debugger;
     let pendingProof = {
       id: this.state.numberOfProofs,
       title: form.values.title,
@@ -118,7 +118,6 @@ class App extends Component {
         { from: this.state.accounts[0] }
       )
       .then(result => {
-        debugger;
         let finishedProof = this.state.proofs.map(p => {
           if (p.id === this.state.numberOfProofs) {
             p.pending = false;
