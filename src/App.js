@@ -42,12 +42,6 @@ class App extends Component {
   }
 
   instantiateContract() {
-    /*
-     * SMART CONTRACT EXAMPLE
-     *
-     * Normally these functions would be called in the context of a
-     * state management library, but for convenience I've placed them here.
-     */
     const contract = require("truffle-contract");
     const proofs = contract(ProofsContract);
     proofs.setProvider(this.state.web3.currentProvider);
@@ -61,16 +55,19 @@ class App extends Component {
         .deployed()
         .then(instance => {
           proofsInstance = instance;
-          this.setState({ proofsInstance: proofsInstance, accounts: accounts });
-          //return proofsInstance.getProof(0, {from: accounts[0]});
+          this.setState({
+            createProof: proofsInstance.createProof,
+            accounts: accounts
+          });
+
           return proofsInstance.getProofCount.call();
         })
         .then(result => {
-          this.setState({ numberOfProofs: result.toNumber() });
-          debugger; 
-          if (result.toNumber() > 0) {
+          let numberOfProofs = result.toNumber();
+          this.setState({ numberOfProofs: numberOfProofs });
+          if (numberOfProofs > 0) {
             let promiseArray = [];
-            for (var i = 0; i <= result.toNumber(); i++) {
+            for (var i = 0; i < numberOfProofs; i++) {
               promiseArray.push(proofsInstance.getProof(i));
             }
             return Promise.all(promiseArray);
@@ -110,7 +107,7 @@ class App extends Component {
     this.setState({
       proofs: [...this.state.proofs, pendingProof]
     });
-    return this.state.proofsInstance
+    return this.state
       .createProof(
         form.values.title,
         form.values.description,
@@ -124,7 +121,6 @@ class App extends Component {
           }
           return p;
         });
-        //could call contract again?
         this.setState({
           proofs: finishedProof,
           numberOfProofs: this.state.numberOfProofs++
