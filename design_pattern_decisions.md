@@ -1,9 +1,12 @@
-A user logs into the web app. The user can upload some data (pictures/video) to the app, as well as add a list of tags indicating the contents of the data.
+# Design Pattern Decisions
 
--> each 'proof' is a card, user opens and sees a list of proofs they have created in the past, and the option to create a new proof
+This was my first go at a dapp. My smart contract isn't particularly complex, since I'm mostly using the block chain to store data (and not really to transact much between users). 
 
-The app reads the user’s address and shows all of the data that they have previously uploaded.
+I spent a lot of time dealing with some of the limitations of Solidity. This would've been useful to delve into more inside the course. For example, I initially wanted to use a function called getProofs() returns(Proofs[]) (you can't return an array of structs in solidity).
 
--> be able to filter by tag 
- 
-Users can retrieve necessary reference data about their uploaded items to allow other people to verify the data authenticity.
+Overall, this project is just storing a list of items so the implementation is fairly straightforward. IPFS was also surprisingly easy to use from the javascript side, so that was not much of an issue either.
+
+
+I found these resources to be very helpful for solidity specific questions: https://ethereum.stackexchange.com/questions/13167/are-there-well-solved-and-simple-storage-patterns-for-solidity
+https://medium.com/@robhitchens/solidity-crud-part-1-824ffa69509a
+
