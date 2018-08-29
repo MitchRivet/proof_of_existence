@@ -57,7 +57,7 @@ contract Proofs is Ownable, Pausable {
 
     function createProof(string title, string description, string image) public whenNotPaused {
         Proof memory newProof = Proof({id: lastProofId, creator: msg.sender, title: title, description: description, image: image});
-        proofs[lastProofId] = newProof;
+        proofs.push(newProof);
         lastProofId++;
         emit ProofCreated(lastProofId);
     }
